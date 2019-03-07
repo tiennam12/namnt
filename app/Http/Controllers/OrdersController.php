@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\OrderCreateRequest;
 use App\Order;
 use App\User;
+use App\Product;
 
 class OrdersController extends Controller
 {
@@ -16,7 +17,7 @@ class OrdersController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -60,7 +61,8 @@ class OrdersController extends Controller
     {
         $order = Order::find($id);
 
-        return view('orders.show', ['order' => $order]);
+        return view('orders.show', ['order' => $order])->with(compact('product'));
+
     }
 
     /**
@@ -95,5 +97,23 @@ class OrdersController extends Controller
     public function destroy($id)
     {
         //
+    }
+        public function cancelled(Request $request, $id)
+    {
+        $data = $request->only(['status']);
+        try {
+            $order = Order::find($id);
+            $order->update($data);
+            $result = [
+                'status' => true,
+                'msg' => 'Cancel success',
+            ];
+        } catch (Exception $e) {
+            $result = [
+                'status' => false,
+                'msg' => 'Cancel fail',
+            ];
+        }
+        return response()->json($result);
     }
 }

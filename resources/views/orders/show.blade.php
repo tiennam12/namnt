@@ -36,33 +36,21 @@
                 </tr>
               </thead>
               <tbody>
-                    @foreach ($order->products as $product)
-                        <tr class="row_{{ $order->id }}">
-                            <th scope="row">
-                                <a href="/orders/{{ $order->id }}">{{ $product->id }}</a>
-                            </th>
-                            <td>
-                                <a href="/orders/{{ $order->id }}">{{ $product->category_id }}</a>
-                            </td>
-                            <td>
-                                <a href="/orders/{{ $order->id }}">{{ $product->category_name }}</a>
-                            </td>
-                            <td>
-                                <a href="/orders/{{ $order->id }}">{{ $product->price }}</a>
-                            </td>
-                            <td>
-                                <a href="/orders/{{ $order->id }}">{{ $product->quantity }}</a>
-                            </td>
-                            <td>
-                                <a href="/orders/{{ $order->id }}">{{ $product->avg_rating }}</a>
-                            </td>
-                            <td>{{ $order->total_price }}</td>
-                            <td>
-                                <a href="orders/{{ $user->id }}/edit" class="btn btn-info" role="button">Edit</a>
-                                <a href="#" class="btn btn-info btn-del-order" role="button" data-user-id="{{ $order->id }}">Delete</a>
-                            </td>
+                        <?php foreach($order->products as $product):  ?>
+                        <tr>
+                            <td> <?php echo $product['id']; ?> </td>
+                            <td> <?php echo $product['category_id']; ?> </td>
+                            <td> <?php echo $product['category_name']; ?> </td>
+                            <td> <?php echo $product['price']; ?></td>
+                            <td> <?php echo $product['image']; ?> </td>
+                            <td> <?php echo $product['quantity']; ?> </td>
+                            <td> <?php echo $product['avg_rating']; ?> </td>
                         </tr>
-                    @endforeach
+                        <td>
+                                  <a href="products/<?php echo $product['id'];?>/edit" class="btn btn-info" role="button">Edit</a>
+                                  <a href="products/<?php echo $product['id'];?>/delete" class="btn btn-info" role="button"> Delete</a>
+                        </td>
+                      <?php endforeach; ?>
               </tbody>
             </table>
         </div>

@@ -12,7 +12,7 @@ class Order extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'total_price', 'description',
+        'user_id', 'total_price', 'description','status',
     ];
     public function products() {
         // return $this->belongsToMany('App\OrderDetail', 'order_detail', 'order_id', 'product_id');

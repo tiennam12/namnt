@@ -17,25 +17,30 @@
                       <thead>
                         <tr>
                           <th scope="col">#</th>
-                          <th scope="col">Name</th>
-                          <th scope="col">Email</th>
-                          <th scope="col">Action</th>
+                          <th scope="col">category id</th>
+                          <th scope="col">category name</th>
+                          <th scope="col">price</th>
+                          <th scope="col">quantity</th>
+                          <th scope="col">avg rating</th>
+                          <th scope="col">action</th>
                         </tr>
                       </thead>
                       <tbody>
-                        @foreach ($users as $user)
-                            <tr class="row_{{ $user->id }}">
-                              <th scope="row">{{ $user->id }}</th>
-                                <td>
-                                    <a href="/users/{{ $user->id }}">{{ $user->name }}</a>
-                                </td>
-                              <td>{{ $user->email }}</td>
-                              <td>
-                                  <a href="users/{{ $user->id }}/edit" class="btn btn-info" role="button">Edit</a>
-                                  <a href="#" class="btn btn-info btn-del-user" role="button" data-user-id="{{ $user->id }}">Delete</a>
-                              </td>
-                            </tr>
-                        @endforeach
+                        <?php foreach($products as $product):  ?>
+                        <tr>
+                            <td> <?php echo $product['id']; ?> </td>
+                            <td> <?php echo $product['category_id']; ?> </td>
+                            <td> <?php echo $product['category_name']; ?> </td>
+                            <td> <?php echo $product['price']; ?></td>
+                            <td> <?php echo $product['image']; ?> </td>
+                            <td> <?php echo $product['quantity']; ?> </td>
+                            <td> <?php echo $product['avg_rating']; ?> </td>
+                        </tr>
+                        <td>
+                                  <a href="products/<?php echo $product['id'];?>/edit" class="btn btn-info" role="button">Edit</a>
+                                  <a href="#" class="btn btn-info btn-del-product" role="button" data-product-id="{{ $product->id }}">Delete</a>
+                        </td>
+                      <?php endforeach; ?>
                       </tbody>
                     </table>
                 </div>
@@ -43,24 +48,26 @@
         </div>
     </div>
 </div>
-
 <script type="text/javascript">
     $(document).ready(function(){
-        $('.btn-del-user').click(function() {
+
+        $('.btn-del-product').click(function() {
             if (confirm('You are sure?')) {
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 });
-                var userId = $(this).data('user-id');
-                var url = '/users/' + userId;
+
+                var productId = $(this).data('product-id');
+                var url = '/products/' + productId;
+
                 $.ajax({
                     url: url,
                     type: 'DELETE',
                     success: function(result) {
                         if (result.status) {
-                            $('.row_' + userId).remove();
+                            $('.row_' + productId).remove();
                         } else {
                             alert(result.msg);
                         }
