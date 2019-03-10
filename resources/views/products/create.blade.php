@@ -8,7 +8,11 @@
                 <div class="card-header">{{ __('Create product') }}</div>
 
                 <div class="card-body">
+<<<<<<< HEAD
                     <form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data">
+=======
+                    <form method="POST" action="{{ route('products.store') }}">
+>>>>>>> 96cc1124d63e1a0b72c925b7e71bb68753ac271a
                         @csrf
 
                         <div class="form-group row">
@@ -57,7 +61,11 @@
                             <label for="image" class="col-md-4 col-form-label text-md-right">{{ __('Image') }}</label>
 
                             <div class="col-md-6">
+<<<<<<< HEAD
                                 <input id="image" type="file" class="form-control{{ $errors->has('image') ? ' is-invalid' : '' }}" name="image" required>
+=======
+                                <input type="file" name="fileToUpload" id="fileToUpload">
+>>>>>>> 96cc1124d63e1a0b72c925b7e71bb68753ac271a
 
                                 @if ($errors->has('image'))
                                     <span class="invalid-feedback" role="alert">
@@ -66,7 +74,11 @@
                                 @endif
                             </div>
                         </div>
+<<<<<<< HEAD
                         
+=======
+
+>>>>>>> 96cc1124d63e1a0b72c925b7e71bb68753ac271a
                         <div class="form-group row">
                             <label for="quantity" class="col-md-4 col-form-label text-md-right">{{ __('quantity') }}</label>
 

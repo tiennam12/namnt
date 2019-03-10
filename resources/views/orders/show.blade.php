@@ -24,7 +24,39 @@
             <hr>
             <hr>
 
+<<<<<<< HEAD
             
+=======
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">category_id</th>
+                  <th scope="col">category_name</th>
+                  <th scope="col">price</th>
+                  <th scope="col">quantity</th>
+                  <th scope="col">avg_rating</th>
+                </tr>
+              </thead>
+              <tbody>
+                        <?php foreach($order->products as $product):  ?>
+                        <tr>
+                            <td> <?php echo $product['id']; ?> </td>
+                            <td> <?php echo $product['category_id']; ?> </td>
+                            <td> <?php echo $product['category_name']; ?> </td>
+                            <td> <?php echo $product['price']; ?></td>
+                            <td> <?php echo $product['image']; ?> </td>
+                            <td> <?php echo $product['quantity']; ?> </td>
+                            <td> <?php echo $product['avg_rating']; ?> </td>
+                        </tr>
+                        <td>
+                                  <a href="products/<?php echo $product['id'];?>/edit" class="btn btn-info" role="button">Edit</a>
+                                  <a href="products/<?php echo $product['id'];?>/delete" class="btn btn-info" role="button"> Delete</a>
+                        </td>
+                      <?php endforeach; ?>
+              </tbody>
+            </table>
+>>>>>>> 96cc1124d63e1a0b72c925b7e71bb68753ac271a
         </div>
     </div>
 </div>

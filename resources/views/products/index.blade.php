@@ -10,29 +10,48 @@
                       {{ session('status') }}
                   </div>
               @endif
+<<<<<<< HEAD
                 <div class="card-header">Products List</div>
 
                 <div class="card-body">
                     <table class="table">
                       <!-- <thead>
+=======
+                <div class="card-header">User List</div>
+
+                <div class="card-body">
+                    <table class="table">
+                      <thead>
+>>>>>>> 96cc1124d63e1a0b72c925b7e71bb68753ac271a
                         <tr>
                           <th scope="col">#</th>
                           <th scope="col">category id</th>
                           <th scope="col">category name</th>
                           <th scope="col">price</th>
+<<<<<<< HEAD
                           <th scope="col">image</th>
+=======
+>>>>>>> 96cc1124d63e1a0b72c925b7e71bb68753ac271a
                           <th scope="col">quantity</th>
                           <th scope="col">avg rating</th>
                           <th scope="col">action</th>
                         </tr>
+<<<<<<< HEAD
                       </thead> -->
                       <tbody>
                         <?php foreach($products as $product):  ?>
                         <!-- <tr>
+=======
+                      </thead>
+                      <tbody>
+                        <?php foreach($products as $product):  ?>
+                        <tr>
+>>>>>>> 96cc1124d63e1a0b72c925b7e71bb68753ac271a
                             <td> <?php echo $product['id']; ?> </td>
                             <td> <?php echo $product['category_id']; ?> </td>
                             <td> <?php echo $product['category_name']; ?> </td>
                             <td> <?php echo $product['price']; ?></td>
+<<<<<<< HEAD
                             </td> <img src="{{ asset(config('products.image_path') . $product->image) }}" alt="{{ $product->image }}" height="70" width="70">
                             <td> <?php echo $product['quantity']; ?> </td>
                             <td> <?php echo $product['avg_rating']; ?> </td>
@@ -60,6 +79,16 @@
                                 <a href="#" class="btn btn-info btn-del-product" role="button" data-product-id="{{ $product->id }}">Delete</a>
                             @endif
                         </td> -->
+=======
+                            <td> <?php echo $product['image']; ?> </td>
+                            <td> <?php echo $product['quantity']; ?> </td>
+                            <td> <?php echo $product['avg_rating']; ?> </td>
+                        </tr>
+                        <td>
+                                  <a href="products/<?php echo $product['id'];?>/edit" class="btn btn-info" role="button">Edit</a>
+                                  <a href="#" class="btn btn-info btn-del-product" role="button" data-product-id="{{ $product->id }}">Delete</a>
+                        </td>
+>>>>>>> 96cc1124d63e1a0b72c925b7e71bb68753ac271a
                       <?php endforeach; ?>
                       </tbody>
                     </table>

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @extends('layouts.app')
 
 @section('content')
@@ -48,3 +49,12 @@
     </div>
 </div>
 @endsection
+=======
+show order: 
+category_id:{{ $product->category_id }}<br>
+category_name:{{ $product->category_name }}<br>
+price:{{ $product->price }}<br>
+image:{{ $product->image }}<br>
+quantity:{{ $product->quantity }}<br>
+avg_rating:{{ $product->avg_rating}}<br>
+>>>>>>> 96cc1124d63e1a0b72c925b7e71bb68753ac271a
