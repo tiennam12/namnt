@@ -56,7 +56,6 @@
                       <?php endforeach; ?>
               </tbody>
             </table>
->>>>>>> 96cc1124d63e1a0b72c925b7e71bb68753ac271a
         </div>
     </div>
 </div>

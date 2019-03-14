@@ -17,7 +17,14 @@ class OrdersController extends Controller
      */
     public function index()
     {
-        
+      $orders = Order::paginate(15);
+
+
+
+        if(!$orders) {
+
+            return redirect(route('home'))->with('status', 'Have not any order');  
+    }
     }
 
     /**
@@ -38,17 +45,95 @@ class OrdersController extends Controller
      */
     public function store(OrderCreateRequest $request)
     {
-        $data = $request->only(['total_price', 'description']);
+         $productId = $request->get('product_id');
+
+        $product = Product::find($productId);
+
         $currentUserId = auth()->id();
 
-        try {
-            $data['user_id'] = $currentUserId;
-            Order::create($data);
-        } catch (Exception $e) {
-            return back()->with('status', 'Create fail');
+        $user = User::find($currentUserId);
+
+
+
+        if (!$product) {
+
+            return back()->with('status', 'Product does not exist');
+
         }
 
-        return redirect("users/$currentUserId")->with('status', 'Profile updated!');
+
+
+        $data['total_price'] = $product->price;
+
+        $data['description'] = "description";
+
+        $data['user_id'] = $currentUserId;
+
+        $order = null;
+
+        $flag = true;
+
+
+
+        try {
+
+            if (!$user->orders->isEmpty()) {
+
+                foreach ($user->orders as $result) {
+
+                    if ( $result->status == 1) {
+
+                        $flag = false;
+
+                        $data['total_price'] = $result->total_price + $product->price;
+
+                        $result->update($data);
+
+                        $order = Order::find($result->id);
+
+                        break;
+
+                    }
+
+                }
+
+
+
+                if ($flag) {
+
+                    $order = Order::create($data);
+
+                }
+
+            } else {
+
+                $order = Order::create($data);
+
+            }
+
+
+
+            $orderProduct['order_id'] = $order->id;
+
+            $orderProduct['product_id'] = $product->id;
+
+            $orderProduct['quantity'] = 1;
+
+            $orderProduct['price'] = $product->price;
+
+            OrderProduct::create($orderProduct);
+
+        } catch (\Exception $e) {
+
+            return back()->with('status', 'Create fail');
+
+        }
+
+
+
+        return redirect(route('orders.show', $order->id))->with('status', 'Create successfuly !');
+
+    }
     }
 
     /**

@@ -5,12 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductCreateRequest;
 use App\Product;
-<<<<<<< HEAD
 use App\Order;
+use App\Category;
 use Session;
-=======
 
->>>>>>> 96cc1124d63e1a0b72c925b7e71bb68753ac271a
 class ProductsController extends Controller
 {
     /**
@@ -20,7 +18,7 @@ class ProductsController extends Controller
      */
     public function index()
     {  
-        $products = Product::all();
+        $products = Product::paginate(5);;
 
         return view('products.index', ['products' => $products]);
     }   
@@ -30,8 +28,9 @@ class ProductsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create() 
-    {
-        return view('products.create');
+    {   
+        $categories = Category::all();
+        return view('products.create', ['categories' => $categories]);
     }
 
     /**
@@ -42,7 +41,6 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-<<<<<<< HEAD
         $data = $request->only(['category_id','category_name','image','quantity','avg_rating','price', 'created_by']);
         $currentUserId = auth()->id();
         $target_dir = public_path() . "/" . config('products.image_path');
@@ -101,7 +99,6 @@ class ProductsController extends Controller
         }
 
         return redirect('/products/' . $product->id)->with('status','created');
-=======
         $data = $request->only(['price', 'image', 'avg_rating', 'quantity','category_id', 'category_name']);
         try {
             $product = Product::create($data);
@@ -109,7 +106,6 @@ class ProductsController extends Controller
             return back()->with('status', 'Create fail!');
         }
         return redirect('products/' . $product->id)->with('status', 'Create success!');
->>>>>>> 96cc1124d63e1a0b72c925b7e71bb68753ac271a
     }
 
     /**
@@ -131,8 +127,7 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-<<<<<<< HEAD
-    public function edit($id )
+    public function edit($id)
     {   
         $objProduct     = new Product();
         $getProductById = $objProduct->find($id)->toArray();
@@ -144,14 +139,6 @@ class ProductsController extends Controller
         } else{
             return('Khong duoc sua');
         }
-=======
-    public function edit($id)
-    {
-        $objProduct     = new Product();
-        $getProductById = $objProduct->find($id)->toArray();
-
-        return view('products.edit')->with('getProductById', $getProductById);
->>>>>>> 96cc1124d63e1a0b72c925b7e71bb68753ac271a
     }
 
     /**
@@ -163,7 +150,6 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $id='')
     {
-<<<<<<< HEAD
             $data = $request->only([
                 'category_id',
                 'product_name',
@@ -177,8 +163,7 @@ class ProductsController extends Controller
         } catch (Exception $e) {
             return back()->with('status', 'Create fail!');
         }
-        return redirect('products/' . $product->id)->with('status', 'Create success!');
-=======
+        return redirect('products/' . $product->id)->with('status', 'Create success!'); 
         $allRequest = $request->all();
         $category_id = $allRequest['category_id'];
         $category_name = $allRequest['category_name'];
@@ -199,7 +184,6 @@ class ProductsController extends Controller
         $getProductById->save();
 
         return redirect()->action('ProductsController@index');
->>>>>>> 96cc1124d63e1a0b72c925b7e71bb68753ac271a
     }
 
     /**
@@ -210,7 +194,6 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
-<<<<<<< HEAD
         $product = Product::find($id);
         $checkId = auth()->id();
         if($product->user_id == $checkId){
@@ -232,7 +215,6 @@ class ProductsController extends Controller
         } else {
             return('qqq');
         }    
-=======
         try {
             $product = Product::find($id);
             $product->delete();
@@ -248,6 +230,5 @@ class ProductsController extends Controller
         }
 
         return response()->json($result);
->>>>>>> 96cc1124d63e1a0b72c925b7e71bb68753ac271a
     }
 }

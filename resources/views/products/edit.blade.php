@@ -18,7 +18,7 @@
                    value="{{ old('category_id', $getProductById['category_id'])}}" name="category_id">
         </div>
         <div class="form-group">
-            <label for="exampleInputEmail1">category_name</label>
+            <label for="exampleInputEmail1">product_name</label>
             <input type="text" class="form-control"
                    value="{{ old('category_name', $getProductById['category_name'])}}" name="category_name">
         </div>

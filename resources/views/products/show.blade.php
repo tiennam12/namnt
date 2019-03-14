@@ -18,7 +18,7 @@
                         <tr>
                           <th scope="col">#</th>
                           <th scope="col">category id</th>
-                          <th scope="col">category name</th>
+                          <th scope="col">product name</th>
                           <th scope="col">price</th>
                           <th scope="col">quantity</th>
                           <th scope="col">avg rating</th>
@@ -30,7 +30,7 @@
                         <tr>
                             <td> <?php echo $product['id']; ?> </td>
                             <td> <?php echo $product['category_id']; ?> </td>
-                            <td> <?php echo $product['category_name']; ?> </td>
+                            <td> <?php echo $product['product_name']; ?> </td>
                             <td> <?php echo $product['price']; ?></td>
                             <td> <?php echo $product['image']; ?> </td>
                             <td> <?php echo $product['quantity']; ?> </td>

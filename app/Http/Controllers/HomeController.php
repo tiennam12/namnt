@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -23,10 +24,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-<<<<<<< HEAD
         return view('/');
-=======
-        return view('home');
->>>>>>> 96cc1124d63e1a0b72c925b7e71bb68753ac271a
     }
 }
