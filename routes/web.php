@@ -37,6 +37,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/products/{id}','ProductsController@show')->name('products.show');
     Route::get('/products/{id}/edit', 'ProductsController@edit')->name('products.edit');
     Route::post('/products/update', 'ProductsController@update')->name('products.update');
-    Route::get('search', 'SearchController@getSearch');
-	Route::post('search/name', 'SearchController@getSearchAjax')->name('search');
+	Route::get('/products/search/{key}', 'ProductsController@search')->name('products.search');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

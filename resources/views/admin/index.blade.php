@@ -5,12 +5,11 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-            <form class="form-inline" action="{{ route('products.search') }}">
+            <form class="form-inline" action="/search ">
                 <div class="form-group mx-sm-3 mb-2">
                     <input type="text" name="search" placeholder="Search product name" id="search" class="float-right">
                 </div>
                 <button type="submit" class="btn btn-primary mb-2">Search</button>
-            </form>    
                 <div class="row">
                 <div class="col-md-9 float-right">Order by:</div>
                 <div class="col-md-3">
@@ -21,7 +20,7 @@
                     </select>
                 </div>
                 </div>
-            
+            </form>
                 @if (session('status'))
                   <div class="alert alert-success">
                       {{ session('status') }}

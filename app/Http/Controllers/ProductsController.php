@@ -16,11 +16,19 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {  
-        $products = Product::paginate(5);;
+        $products = Product::Paginate(10);
 
-        return view('products.index', ['products' => $products]);
+        $orderBy = isset($products['orderBy']) ? $products['orderBy'] : 'created_at';
+        $type = isset($products['type']) ? $products['type'] : 'desc';
+        $products = Product::orderBy($orderBy, $type)->paginate(config('products.paginate'));
+        $selected = [
+            1 => (($orderBy == 'created_at') && ($type == 'desc')),
+            2 => (($orderBy == 'price') && ($type == 'asc')),
+            3 => (($orderBy == 'price') && ($type == 'desc')),
+        ];
+        return view('products.index', ['products' => $products, 'selected' => $selected]);
     }   
     /**
      * Show the form for creating a new resource.
@@ -41,7 +49,7 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->only(['category_id','category_name','image','quantity','avg_rating','price', 'created_by']);
+        $data = $request->only(['category_id','product_name','image','quantity','avg_rating','price', 'categor' , 'created_by']);
         $currentUserId = auth()->id();
         $target_dir = public_path() . "/" . config('products.image_path');
         $imageName = basename($_FILES["image"]["name"]);
@@ -166,7 +174,8 @@ class ProductsController extends Controller
         return redirect('products/' . $product->id)->with('status', 'Create success!'); 
         $allRequest = $request->all();
         $category_id = $allRequest['category_id'];
-        $category_name = $allRequest['category_name'];
+        $categor = $allRequest['categor'];
+        $product_name = $allRequest['product_name'];
         $price = $allRequest['price'];
         $image = $allRequest['image'];
         $quantity = $allRequest['quantity'];
@@ -176,7 +185,8 @@ class ProductsController extends Controller
         $objProduct  = new Product();
         $getProductById = $objProduct->find($idProduct);
         $getProductById->category_id = $category_id;
-        $getProductById->category_name = $category_name;
+        $getProductById->categor = $categor;
+        $getProductById->product_name = $product_name;
         $getProductById->price = $price;
         $getProductById->image = $image;
         $getProductById->quantity = $quantity;
@@ -230,5 +240,10 @@ class ProductsController extends Controller
         }
 
         return response()->json($result);
+    }
+    public function search($key)
+    {
+        $products = Product::where('product_name', 'like', "%$key%")->get()->toArray();
+        return response()->json($products);
     }
 }
